@@ -16,8 +16,8 @@ exports.stringsAnswers = {
 
     var words = str.split(space); // create an array of words from the original string.
 
-    var firstWord = words[0];   // first word (regardless of length) begins the string
-    var remainingWords = words.slice(1, words.length); // we will iterate through the rest of the words.
+    var firstWord = words[0];   // first word (regardless of length) begins the new string
+    var remainingWords = words.slice(1, words.length); // we will iterate through the rest of the words to construct the new string.
 
     return remainingWords.reduce(function(string, word) {
 
