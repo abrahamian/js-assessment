@@ -22,9 +22,9 @@ exports.stringsAnswers = {
     return remainingWords.reduce(function(string, word) {
 
       var lastLineLength = string.substring(string.lastIndexOf(lineBreak), string.length).length;
+
       // if the last line can fit the new word, prepend the word with a space.
       // otherwise prepend the word with a line break.
-
       var prependedCharacter = ((lastLineLength + word.length) > cols) ? lineBreak : space;
 
       return string.concat(prependedCharacter + word);
