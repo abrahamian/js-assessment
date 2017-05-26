@@ -7,12 +7,13 @@ exports.recursionAnswers = {
   		return node.files ? filesArray.concat(node.files.reduce(getFiles, [])) : filesArray.concat(node);
   	}
 
-  	function locateDir(targetDir, dirName) {
+  	function locateDir(parentDir, dirName) {
+  		var subDirs = parentDir.files.filter(function(node){ return !!node.dir; });
+
   		var i = 0;
-  		var subDirs = targetDir.files.filter(function(node){ return !!node.dir; });
   		while(i < subDirs.length) {
-  			var node = subDirs[i];
-  			return node.dir == dirName ? node : locateDir(node, dirName);
+  			var dir = subDirs[i];
+  			return dir.dir == dirName ? dir : locateDir(dir, dirName);
 				i++;
   		}
   	}
