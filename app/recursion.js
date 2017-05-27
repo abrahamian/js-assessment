@@ -46,40 +46,18 @@ exports.recursionAnswers = {
 
   validParentheses: function(n) {
   	var permute = this.permute;
+  	var arr = (new Array(n).fill("(")).concat(new Array(n).fill(")"));
 
-  	var arr1 = new Array(n).fill("(")
-  	var arr2 = new Array(n).fill(")")
-
-  	var arr = arr1.concat(arr2);
-
-  	function removeOutermostParentheses(str){
-  		return str.slice(1).replace(")", "");
-  	}
-
-  	function hasValidParentheses(str){
-  		var firstOpeningIsBeforeFirstClosing = (str.indexOf("(") < str.indexOf(")"));
-  		var lastOpeningIsBeforeLastClosing = (str.lastIndexOf(")") > str.lastIndexOf("("));
-
-  		if ( firstOpeningIsBeforeFirstClosing && lastOpeningIsBeforeLastClosing ) {
-  			if(str.length == 2) {
-  				return true
-  			} else {
-					return hasValidParentheses(removeOutermostParentheses(str));
-  			}
-  		} else {
-  			return false;
-  		}
-
-  	}
-
-  	function uniqueArray(arr){
-  		return arr.reduce(function(acc, val, i, array) {
-  			return (acc.indexOf(val) > -1) ? acc : acc.concat([val]);
-  		}, []);
-  	}
-
-  	var arrayOfPermutationStrings = permute(arr).map(function(array){return array.join(""); })
-  	return uniqueArray(arrayOfPermutationStrings).filter(hasValidParentheses);
+  	return permute(arr).reduce(function(acc, val, i, array) {
+			var str = val.join("");
+			return (acc.indexOf(str) > -1) ? acc : acc.concat(str);
+		}, []).filter(function hasValidParentheses(str) {
+			return (
+				str.indexOf("(") < str.indexOf(")")
+				&& str.lastIndexOf(")") > str.lastIndexOf("(")
+				&& (str.length == 2 || hasValidParentheses(str.slice(1).replace(")", "")))
+			);
+		});
 
   }
 
