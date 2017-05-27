@@ -48,7 +48,7 @@ exports.recursionAnswers = {
   	var permute = this.permute;
   	var arr = (new Array(n).fill("(")).concat(new Array(n).fill(")"));
 
-  	return permute(arr).reduce(function(acc, val, i, array) {
+  	return permute(arr).reduce(function(acc, val) {
 			var str = val.join("");
 			return (acc.indexOf(str) > -1) ? acc : acc.concat(str);
 		}, []).filter(function hasValidParentheses(str) {
